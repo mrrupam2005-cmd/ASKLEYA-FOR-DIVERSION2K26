@@ -1,0 +1,290 @@
+@import "tailwindcss";
+
+:root {
+  --foreground-rgb: 244, 237, 231;
+  --background-start-rgb: 26, 18, 11;
+  --background-end-rgb: 43, 30, 22;
+  --surface-elevated: #1f1510;
+  --surface-muted: #2b1c14;
+  --accent-teal: #22d3ee;
+  --accent-amber: #e4b680;
+}
+
+@layer components {
+  .glass-panel {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_18px_60px_rgba(0,0,0,0.55)];
+  }
+
+  .holographic-border {
+    @apply border border-[#22D3EE]/30 shadow-[0_0_18px_rgba(34,211,238,0.25)];
+  }
+
+  .neon-text-glow {
+    text-shadow: 0 0 16px rgba(34, 211, 238, 0.4),
+      0 0 30px rgba(34, 211, 238, 0.25);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(0.35deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.6;
+    box-shadow: 0 0 10px rgba(34, 211, 238, 0.18);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 26px rgba(34, 211, 238, 0.45);
+  }
+}
+
+@keyframes light-wave {
+  0% {
+    transform: scaleX(0.4);
+    opacity: 0.25;
+  }
+  50% {
+    transform: scaleX(1.08);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scaleX(0.4);
+    opacity: 0.25;
+  }
+}
+
+@keyframes heartbeat-line {
+  0% {
+    stroke-dashoffset: 40;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes subtle-pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+.animate-float {
+  animation: float 10s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+.animate-light-wave {
+  animation: light-wave 1.8s ease-in-out infinite;
+}
+
+.dashboard-shell {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(228, 182, 128, 0.18), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(34, 211, 238, 0.14), transparent 60%),
+    linear-gradient(135deg, #1a120b, #2b1c14 45%, #3c2a21 80%);
+  color: rgb(var(--foreground-rgb));
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.02) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(circle at top, black 0, transparent 70%);
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.header-heartbeat path {
+  stroke-dasharray: 40;
+  animation: heartbeat-line 1.8s linear infinite;
+}
+
+.enterprise-card {
+  background: radial-gradient(
+      circle at top left,
+      rgba(228, 182, 128, 0.08),
+      transparent 60%
+    ),
+    rgba(16, 9, 6, 0.85);
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow:
+    0 18px 60px rgba(0, 0, 0, 0.75),
+    0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: #120c08;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar for Futuristic UI */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(141, 123, 104, 0.7);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(34, 211, 238, 0.7);
+}
+
+/* ========== Light Mode ========== */
+[data-theme="light"] body {
+  background: #f5f0eb;
+}
+
+[data-theme="light"] .dashboard-shell {
+  background:
+    radial-gradient(circle at top left, rgba(139, 90, 43, 0.08), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(34, 211, 238, 0.06), transparent 60%),
+    linear-gradient(135deg, #fbf7f4, #f5f0eb 45%, #e8dfd5 80%);
+  color: #1a120b;
+}
+
+[data-theme="light"] .dashboard-shell::before {
+  background-image: linear-gradient(
+      rgba(26, 18, 11, 0.04) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(26, 18, 11, 0.04) 1px, transparent 1px);
+  mask-image: radial-gradient(circle at top, black 0, transparent 70%);
+}
+
+[data-theme="light"] .enterprise-card {
+  background: radial-gradient(
+      circle at top left,
+      rgba(139, 90, 43, 0.05),
+      transparent 60%
+    ),
+    rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(26, 18, 11, 0.12);
+  box-shadow:
+    0 8px 32px rgba(26, 18, 11, 0.08),
+    0 0 0 1px rgba(26, 18, 11, 0.04);
+}
+
+[data-theme="light"] .glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(26, 18, 11, 0.1);
+  box-shadow: 0 8px 32px rgba(26, 18, 11, 0.12);
+}
+
+[data-theme="light"] header {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(26, 18, 11, 0.08);
+}
+
+[data-theme="light"] .theme-aware-text {
+  color: #1a120b !important;
+}
+
+[data-theme="light"] .theme-aware-text-muted {
+  color: #5c4d3e !important;
+}
+
+/* Light mode: ensure text is readable on light backgrounds */
+[data-theme="light"] header h1,
+[data-theme="light"] header p,
+[data-theme="light"] header span,
+[data-theme="light"] header button {
+  color: #1a120b !important;
+}
+
+[data-theme="light"] header [class*="text-white"] {
+  color: #1a120b !important;
+}
+
+[data-theme="light"] .enterprise-card,
+[data-theme="light"] .glass-panel,
+[data-theme="light"] [class*="text-white"] {
+  color: #1a120b;
+}
+
+[data-theme="light"] .enterprise-card p,
+[data-theme="light"] .enterprise-card span,
+[data-theme="light"] .glass-panel p,
+[data-theme="light"] .glass-panel span,
+[data-theme="light"] main p,
+[data-theme="light"] main span {
+  color: inherit;
+}
+
+[data-theme="light"] input::placeholder {
+  color: rgba(26, 18, 11, 0.5) !important;
+}
+
+[data-theme="light"] input {
+  color: #1a120b !important;
+}
+
+[data-theme="light"] .enterprise-card button,
+[data-theme="light"] .glass-panel button {
+  color: #1a120b;
+}
+
+[data-theme="light"] aside nav button span {
+  color: inherit;
+}
+
+[data-theme="light"] footer p {
+  color: #5c4d3e !important;
+}
+
+[data-theme="light"] .bg-black\/15 {
+  background: rgba(255, 255, 255, 0.4) !important;
+}
+
+[data-theme="light"] .border-white\/10 {
+  border-color: rgba(26, 18, 11, 0.12) !important;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-track {
+  background: rgba(26, 18, 11, 0.08);
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: rgba(139, 90, 43, 0.4);
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(34, 211, 238, 0.5);
+}

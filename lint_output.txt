@@ -1,0 +1,64 @@
+
+> ai-doctor-chatbot@0.1.0 lint
+> eslint
+
+
+C:\Users\taniy\.gemini\antigravity\scratch\ai-doctor-chatbot\src\components\chat\ChatInterface.tsx
+    4:27  warning  'Menu' is defined but never used                                                                                                                                                                                                                                                         @typescript-eslint/no-unused-vars
+    4:49  warning  'Smartphone' is defined but never used                                                                                                                                                                                                                                                   @typescript-eslint/no-unused-vars
+   38:8   warning  React Hook useEffect has a missing dependency: 'messages.length'. Either include it or remove the dependency array                                                                                                                                                                       react-hooks/exhaustive-deps
+   74:18  warning  'error' is defined but never used                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+  131:41  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\taniy\.gemini\antigravity\scratch\ai-doctor-chatbot\src\components\chat\InputArea.tsx
+  13:35  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  20:50  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  20:87  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  27:59  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  33:58  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\taniy\.gemini\antigravity\scratch\ai-doctor-chatbot\src\components\chat\MessageBubble.tsx
+  25:29  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\taniy\.gemini\antigravity\scratch\ai-doctor-chatbot\src\components\features\MedicineReminder.tsx
+  19:13  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\taniy\.gemini\antigravity\scratch\ai-doctor-chatbot\src\components\features\MedicineReminder.tsx:19:13
+  17 |         const saved = localStorage.getItem('medicineReminders');
+  18 |         if (saved) {
+> 19 |             setReminders(JSON.parse(saved));
+     |             ^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  20 |         }
+  21 |
+  22 |         // Check for reminders every minute  react-hooks/set-state-in-effect
+
+C:\Users\taniy\.gemini\antigravity\scratch\ai-doctor-chatbot\src\components\features\VoiceInput.tsx
+  11:52  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     @typescript-eslint/no-explicit-any
+  15:13  error  Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/ban-ts-comment
+  21:50  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     @typescript-eslint/no-explicit-any
+  27:49  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     @typescript-eslint/no-explicit-any
+  36:13  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\taniy\.gemini\antigravity\scratch\ai-doctor-chatbot\src\components\features\VoiceInput.tsx:36:13
+  34 |             };
+  35 |
+> 36 |             setRecognition(speechRecognition);
+     |             ^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  37 |         }
+  38 |     }, [onTranscript]);
+  39 |  react-hooks/set-state-in-effect
+
+✖ 17 problems (11 errors, 6 warnings)
+

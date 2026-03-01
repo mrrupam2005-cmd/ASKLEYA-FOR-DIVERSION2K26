@@ -1,42 +1,204 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# yallist
 
-## ✨ New Features
-- **🌍 Global Hindi Support**: Automatically detects and responds in Hindi.
-- **🗣️ Bilingual Interface**: UI elements updated for multi-language clarity.
-- **🧠 Smart Fallback**: Differentiates between unknown medical symptoms and general queries.
-- **🚨 Emergency Detection**: Detects severe symptoms and advises immediate care.
+Yet Another Linked List
 
-## Getting Started
+There are many doubly-linked list implementations like it, but this
+one is mine.
 
-First, run the development server:
+For when an array would be too big, and a Map can't be iterated in
+reverse order.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+[![Build Status](https://travis-ci.org/isaacs/yallist.svg?branch=master)](https://travis-ci.org/isaacs/yallist) [![Coverage Status](https://coveralls.io/repos/isaacs/yallist/badge.svg?service=github)](https://coveralls.io/github/isaacs/yallist)
+
+## basic usage
+
+```javascript
+var yallist = require('yallist')
+var myList = yallist.create([1, 2, 3])
+myList.push('foo')
+myList.unshift('bar')
+// of course pop() and shift() are there, too
+console.log(myList.toArray()) // ['bar', 1, 2, 3, 'foo']
+myList.forEach(function (k) {
+  // walk the list head to tail
+})
+myList.forEachReverse(function (k, index, list) {
+  // walk the list tail to head
+})
+var myDoubledList = myList.map(function (k) {
+  return k + k
+})
+// now myDoubledList contains ['barbar', 2, 4, 6, 'foofoo']
+// mapReverse is also a thing
+var myDoubledListReverse = myList.mapReverse(function (k) {
+  return k + k
+}) // ['foofoo', 6, 4, 2, 'barbar']
+
+var reduced = myList.reduce(function (set, entry) {
+  set += entry
+  return set
+}, 'start')
+console.log(reduced) // 'startfoo123bar'
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## api
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The whole API is considered "public".
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Functions with the same name as an Array method work more or less the
+same way.
 
-## Learn More
+There's reverse versions of most things because that's the point.
 
-To learn more about Next.js, take a look at the following resources:
+### Yallist
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Default export, the class that holds and manages a list.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Call it with either a forEach-able (like an array) or a set of
+arguments, to initialize the list.
 
-## Deploy on Vercel
+The Array-ish methods all act like you'd expect.  No magic length,
+though, so if you change that it won't automatically prune or add
+empty spots.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Yallist.create(..)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Alias for Yallist function.  Some people like factories.
+
+#### yallist.head
+
+The first node in the list
+
+#### yallist.tail
+
+The last node in the list
+
+#### yallist.length
+
+The number of nodes in the list.  (Change this at your peril.  It is
+not magic like Array length.)
+
+#### yallist.toArray()
+
+Convert the list to an array.
+
+#### yallist.forEach(fn, [thisp])
+
+Call a function on each item in the list.
+
+#### yallist.forEachReverse(fn, [thisp])
+
+Call a function on each item in the list, in reverse order.
+
+#### yallist.get(n)
+
+Get the data at position `n` in the list.  If you use this a lot,
+probably better off just using an Array.
+
+#### yallist.getReverse(n)
+
+Get the data at position `n`, counting from the tail.
+
+#### yallist.map(fn, thisp)
+
+Create a new Yallist with the result of calling the function on each
+item.
+
+#### yallist.mapReverse(fn, thisp)
+
+Same as `map`, but in reverse.
+
+#### yallist.pop()
+
+Get the data from the list tail, and remove the tail from the list.
+
+#### yallist.push(item, ...)
+
+Insert one or more items to the tail of the list.
+
+#### yallist.reduce(fn, initialValue)
+
+Like Array.reduce.
+
+#### yallist.reduceReverse
+
+Like Array.reduce, but in reverse.
+
+#### yallist.reverse
+
+Reverse the list in place.
+
+#### yallist.shift()
+
+Get the data from the list head, and remove the head from the list.
+
+#### yallist.slice([from], [to])
+
+Just like Array.slice, but returns a new Yallist.
+
+#### yallist.sliceReverse([from], [to])
+
+Just like yallist.slice, but the result is returned in reverse.
+
+#### yallist.toArray()
+
+Create an array representation of the list.
+
+#### yallist.toArrayReverse()
+
+Create a reversed array representation of the list.
+
+#### yallist.unshift(item, ...)
+
+Insert one or more items to the head of the list.
+
+#### yallist.unshiftNode(node)
+
+Move a Node object to the front of the list.  (That is, pull it out of
+wherever it lives, and make it the new head.)
+
+If the node belongs to a different list, then that list will remove it
+first.
+
+#### yallist.pushNode(node)
+
+Move a Node object to the end of the list.  (That is, pull it out of
+wherever it lives, and make it the new tail.)
+
+If the node belongs to a list already, then that list will remove it
+first.
+
+#### yallist.removeNode(node)
+
+Remove a node from the list, preserving referential integrity of head
+and tail and other nodes.
+
+Will throw an error if you try to have a list remove a node that
+doesn't belong to it.
+
+### Yallist.Node
+
+The class that holds the data and is actually the list.
+
+Call with `var n = new Node(value, previousNode, nextNode)`
+
+Note that if you do direct operations on Nodes themselves, it's very
+easy to get into weird states where the list is broken.  Be careful :)
+
+#### node.next
+
+The next node in the list.
+
+#### node.prev
+
+The previous node in the list.
+
+#### node.value
+
+The data the node contains.
+
+#### node.list
+
+The list to which this node belongs.  (Null if it does not belong to
+any list.)
